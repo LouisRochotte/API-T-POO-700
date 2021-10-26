@@ -20,9 +20,13 @@ defmodule MiniProject01Web.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", MiniProject01Web do
-  #   pipe_through :api
-  # end
+    scope "/api", MiniProject01Web do
+      pipe_through :api
+      resources "/users", UserController
+
+      resources "/workingtimes", CommentController
+
+    end
 
   # Enables LiveDashboard only for development
   #
