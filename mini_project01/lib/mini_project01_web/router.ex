@@ -2,31 +2,34 @@ defmodule MiniProject01Web.Router do
   use MiniProject01Web, :router
 
   pipeline :browser do
-    plug :accepts, ["html"]
-    plug :fetch_session
-    plug :fetch_flash
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
+    plug(:accepts, ["html"])
+    plug(:fetch_session)
+    plug(:fetch_flash)
+    plug(:protect_from_forgery)
+    plug(:put_secure_browser_headers)
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
+    plug(:accepts, ["json"])
   end
 
   scope "/", MiniProject01Web do
-    pipe_through :browser
+    pipe_through(:browser)
 
-    get "/", PageController, :index
+    get("/", PageController, :index)
   end
 
   # Other scopes may use custom stacks.
-    scope "/api", MiniProject01Web do
-      pipe_through :api
-      resources "/users", UserController
+  scope "/api", MiniProject01Web do
+    pipe_through(:api)
 
-      resources "/workingtimes", CommentController
+    resources("/users", UserController)
 
-    end
+    resources("/workingtimes", WorkingtimesController, except: [:create])
+    # get("/workingtimes/:id" WorkingtimesController, :show)
+    # get("/workingtimes/:userID", :show)
+    post("/workingtimes/:userID", WorkingtimesController, :create)
+  end
 
   # Enables LiveDashboard only for development
   #
@@ -39,8 +42,8 @@ defmodule MiniProject01Web.Router do
     import Phoenix.LiveDashboard.Router
 
     scope "/" do
-      pipe_through :browser
-      live_dashboard "/dashboard", metrics: MiniProject01Web.Telemetry
+      pipe_through(:browser)
+      live_dashboard("/dashboard", metrics: MiniProject01Web.Telemetry)
     end
   end
 end
