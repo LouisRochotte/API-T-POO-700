@@ -3,8 +3,8 @@ defmodule MiniProject01.Repo.Migrations.CreateClocks do
 
   def change do
     create table(:clocks) do
-      add :time, :datetime, null: false
-      add :status, :boolean, default: false, null: false
+      add :time, :datetime
+      add :status, :boolean
 
       timestamps()
     end

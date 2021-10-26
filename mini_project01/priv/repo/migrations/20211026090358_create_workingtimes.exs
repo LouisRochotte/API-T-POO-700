@@ -3,8 +3,8 @@ defmodule MiniProject01.Repo.Migrations.CreateWorkingtimes do
 
   def change do
     create table(:workingtimes) do
-      add :start, :datetime, null: false
-      add :end, :datetime, null: false
+      add :start, :datetime
+      add :end, :datetime
 
       timestamps()
     end

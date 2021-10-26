@@ -3,8 +3,8 @@ defmodule MiniProject01.Repo.Migrations.CreateUsers do
 
   def change do
     create table(:users) do
-      add :username, :string, null: false
-      add :email, :string, null: false
+      add :username, :string
+      add :email, :string
 
       timestamps()
     end
