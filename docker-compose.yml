@@ -1,0 +1,40 @@
+version : '3'
+services:
+    api:
+        container_name: timemanager_api
+        image: louisrochotte/api-t-poo-700
+        build:
+            context: ./api
+        environment:
+            PGUSER: postgres
+            PGPASSWORD: postgres
+            PGDATABASE: time_manager
+            PGPORT: 5432
+            PGHOST: db
+        ports:
+            - "4000:4000"
+        depends_on:
+            - db
+    db:
+        container_name: timemanager_db
+        image: postgres:9.6
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            PGDATA: /var/lib/postgresql/data/pgdata
+        restart: always
+        volumes:
+            - "/var/run/postgres/postgres.sock:/var/run/postgres/postgres.sock"
+            - "dbdata:/var/lib/postgresql/data"
+      vue-ui:
+        build:
+          context: ./my-app
+          dockerfile: Dockerfile-dev
+        ports:
+          - "8080:8080"
+        container_name: vue-ui
+        volumes:
+          - ./my-app:/usr/src/app/my-app
+          - /usr/src/app/my-app/node_modules
+volumes:
+    dbdata:
