@@ -28,13 +28,10 @@ services:
             - "dbdata:/var/lib/postgresql/data"
     vue-ui:
         build:
-          context: ./my-app
-          dockerfile: Dockerfile-dev
+          context: ./front
+          dockerfile: Dockerfile
         ports:
           - "8080:8080"
-        container_name: vue-ui
-        volumes:
-          - ./my-app:/usr/src/app/my-app
-          - /usr/src/app/my-app/node_modules
+        container_name: front
 volumes:
     dbdata:
