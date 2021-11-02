@@ -10,14 +10,15 @@
                                     Work management
                                 </h5>
                                 <h2 class="card-title">Working hours</h2>
-                                <button type="button" class="btn btn-success" @click="">Month</button>
-                                <button type="button" class="btn btn-success" @click="">Days</button>
+                                <button type="button" class="btn btn-success" @click="month">Month</button>
+                                <button type="button" class="btn btn-success" @click="week">Week</button>
                             </div>
                             <div class="col-sm-6"></div>
                         </div>
                     </template>
                     <div class="chart-area">
-                        <BarChart></BarChart>
+                        <BarWeekChart v-show="barWeekChart"/>
+                        <BarMonthChart v-show="barMonthChart"/>
                     </div>
                 </card>
             </div>
@@ -50,13 +51,15 @@
 </template>
 
 <script>
-import BarChart from "./Chart/BarChart.vue";
+import BarWeekChart from "./Chart/BarWeekChart.vue";
+import BarMonthChart from "./Chart/BarMonthChart.vue";
 import PieChart from "./Chart/PieChart.vue";
 import AreaChart from "./Chart/AreaChart.vue";
 export default {
     name: "App",
     components: {
-        BarChart,
+        BarWeekChart,
+        BarMonthChart,
         PieChart,
         AreaChart
     },
@@ -68,29 +71,20 @@ export default {
                 IncomeTaxes: 750,
                 Taxes: 900,
             },
-            // chart: BarChart
-            // labelsTest: $BarChart.labelsMonth,
-            // datasetsTest: $BarChart.datasetsMonth
+            barWeekChart: true,
+            barMonthChart: true
         };
     },
-//     methods: {
-//         displayMonthChart() {
-//             this.labelsTest = [
-//                 $BarChart.labelsMonth
-//             ],
-//             this.datasetsTest = [
-//                 $BarChart.datasetsMonth
-//             ];
-//         },
-//         displayDaysChart() {
-//             this.labelsTest = [
-//                 $BarChart.labelsDays
-//             ],
-//             this.datasetsTest = [
-//                 $BarChart.datasetsDays
-//             ];
-//         }
-//     }
+    methods : {
+        month () {
+            this.barWeekChart = false;
+            this.barMonthChart = true;
+        },
+        week() {
+            this.barWeekChart = true;
+            this.barMonthChart = false;
+        }
+    }
 };
 </script>
 <style>
