@@ -4,7 +4,7 @@ services:
         container_name: timemanager_api
         image: louisrochotte/api-t-poo-700
         build:
-            context: ./api
+            context: ./timemanager
         environment:
             PGUSER: postgres
             PGPASSWORD: postgres
@@ -26,16 +26,15 @@ services:
         volumes:
             - "/var/run/postgres/postgres.sock:/var/run/postgres/postgres.sock"
             - "dbdata:/var/lib/postgresql/data"
-        services:
     my-app:
-      container_name: my-app
+      container_name: front
       build:
-        context: .
+        context: ./front
         dockerfile: Dockerfile
       volumes:
         - '.:/front'
         - '/front/node_modules'
       ports:
-        - '8081:8080'
+        - '8080:8080'
 volumes:
     dbdata:

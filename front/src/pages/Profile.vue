@@ -31,7 +31,7 @@ export default {
   },
   created() {
     axios
-      .get(`http://localhost:4000/api/users/1`)
+      .get(`http://3.144.104.2:4000/api/users/1`)
       .then((response) => {
         // JSON responses are automatically parsed.
 
