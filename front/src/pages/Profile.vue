@@ -2,11 +2,19 @@
   <div class="row">
     <div class="col-md-4">
       <user-card :user="user"></user-card>
-      <user-report-card :user="user"></user-report-card>
-
+      <user-report-card
+        :user="user"
+        @clockIn="clockIn"
+        @newWorkingTime="newWorkingTime"
+      ></user-report-card>
     </div>
     <div class="col-md-8">
-      <edit-profile-form :user="user" @editUser="editUser" @deleteUser="deleteUser"> </edit-profile-form>
+      <edit-profile-form
+        :user="user"
+        @editUser="editUser"
+        @deleteUser="deleteUser"
+      >
+      </edit-profile-form>
     </div>
   </div>
 </template>
@@ -17,12 +25,12 @@ import UserReportCard from "./Profile/UserReportCard";
 
 import axios from "axios";
 
-const apiEndPoint = "http://localhost:4000/api/";
+const apiEndPoint = "http://localhost:4000/api";
 export default {
   components: {
     EditProfileForm,
     UserCard,
-    UserReportCard
+    UserReportCard,
   },
   data() {
     return {
@@ -32,7 +40,7 @@ export default {
   },
   created() {
     axios
-      .get(`${apiEndPoint}/1`)
+      .get(`${apiEndPoint}/users/1`)
       .then((response) => {
         // JSON responses are automatically parsed.
 
@@ -51,9 +59,61 @@ export default {
       };
       delete objectUser.user.id;
       axios
-        .put(`${apiEndPoint}/1`, objectUser)
+        .put(`${apiEndPoint}/users/1`, objectUser)
         .then((response) => {
           alert("Profile edited");
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+    clockIn: function (event) {
+      if (event.Arrived) {
+        let clock = {
+          status: true,
+          time: new Date().toJSON(),
+        };
+        let objectClock = {
+          clocks: clock,
+        };
+        axios
+          .post(`${apiEndPoint}/clocks/1`, objectClock)
+          .then((response) => {
+            alert("Clocked in");
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          });
+      } else {
+        let clock = {
+          status: false,
+          time: new Date().toJSON(),
+        };
+        let objectClock = {
+          clocks: clock,
+        };
+        axios
+          .post(`${apiEndPoint}/clocks/1`, objectClock)
+          .then((response) => {
+            alert("Clocked in");
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          });
+      }
+    },
+    newWorkingTime: function (schedule) {
+      let workingtime = {
+        start: schedule[0],
+        end: schedule[1],
+      };
+      let objectWorkingTime = {
+        workingtimes: workingtime,
+      };
+      axios
+        .post(`${apiEndPoint}/workingtimes/1`, objectWorkingTime)
+        .then((response) => {
+          console.log("new schedule added");
         })
         .catch((e) => {
           this.errors.push(e);
@@ -66,7 +126,7 @@ export default {
         )
       ) {
         axios
-          .delete(`${apiEndPoint}/1`)
+          .delete(`${apiEndPoint}/users/1`)
           .then((response) => {
             alert("User deleted");
           })

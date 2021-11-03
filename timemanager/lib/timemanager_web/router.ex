@@ -24,6 +24,11 @@ defmodule TimemanagerWeb.Router do
   scope "/api", TimemanagerWeb do
     pipe_through :api
     resources "/users", UserController
+    resources("/clocks", ClockController, except: [:create])
+    resources("/clocks/:userID", ClockController, only: [:create])
+
+    resources("/workingtimes", WorkingtimeController, except: [:create])
+    resources("/workingtimes/:userID", WorkingtimeController, only: [:create])
   end
 
   # Enables LiveDashboard only for development
