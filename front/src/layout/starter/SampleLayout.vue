@@ -36,6 +36,7 @@
           this.$sidebar.displaySidebar(false);
         }
       }
-    }
+    },
+
   };
 </script>

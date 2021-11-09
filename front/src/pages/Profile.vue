@@ -24,8 +24,9 @@ import UserCard from "./Profile/UserCard";
 import UserReportCard from "./Profile/UserReportCard";
 
 import axios from "axios";
+let user = "1";
 
-const apiEndPoint = "http://localhost:4000/api";
+const apiEndPoint = process.env.VUE_APP_API_ENDPOINT;
 export default {
   components: {
     EditProfileForm,
@@ -40,7 +41,7 @@ export default {
   },
   created() {
     axios
-      .get(`${apiEndPoint}/users/1`)
+      .get(`${apiEndPoint}/users/${user}`)
       .then((response) => {
         // JSON responses are automatically parsed.
 

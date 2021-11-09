@@ -6,8 +6,9 @@ defmodule TimemanagerWeb.WorkingtimeController do
 
   action_fallback TimemanagerWeb.FallbackController
 
-  def index(conn, _params) do
-    workingtimes = Data.list_workingtimes()
+  def index(conn, %{"userID" => userId, "start" => workingStart, "end" => workingEnd}) do
+    user_id = String.to_integer(userId)
+    workingtimes = Data.get_workingtime_by!(user_id, workingStart, workingEnd)
     render(conn, "index.json", workingtimes: workingtimes)
   end
 
@@ -24,6 +25,8 @@ defmodule TimemanagerWeb.WorkingtimeController do
       |> render("show.json", workingtime: _params)
     end
   end
+
+
 
   def show(conn, %{"id" => id}) do
     workingtime = Data.get_workingtime!(id)

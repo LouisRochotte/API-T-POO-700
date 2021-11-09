@@ -7,11 +7,11 @@ defmodule TimemanagerWeb.ClockControllerTest do
 
   @create_attrs %{
     status: true,
-    time: ~N[2021-11-01 15:12:00]
+    time: ~N[2021-11-02 14:13:00]
   }
   @update_attrs %{
     status: false,
-    time: ~N[2021-11-02 15:12:00]
+    time: ~N[2021-11-03 14:13:00]
   }
   @invalid_attrs %{status: nil, time: nil}
 
@@ -36,7 +36,7 @@ defmodule TimemanagerWeb.ClockControllerTest do
       assert %{
                "id" => ^id,
                "status" => true,
-               "time" => "2021-11-01T15:12:00"
+               "time" => "2021-11-02T14:13:00"
              } = json_response(conn, 200)["data"]
     end
 
@@ -58,7 +58,7 @@ defmodule TimemanagerWeb.ClockControllerTest do
       assert %{
                "id" => ^id,
                "status" => false,
-               "time" => "2021-11-02T15:12:00"
+               "time" => "2021-11-03T14:13:00"
              } = json_response(conn, 200)["data"]
     end
 

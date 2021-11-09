@@ -1,6 +1,5 @@
 <template>
   <div>
-    <notifications></notifications>
     <router-view :key="$route.fullPath"></router-view>
   </div>
 </template>
@@ -19,8 +18,10 @@
       }
     },
     mounted() {
+
       this.$watch('$route', this.disableRTL, { immediate: true });
       this.$watch('$sidebar.showSidebar', this.toggleNavOpen)
+
     }
   };
 </script>

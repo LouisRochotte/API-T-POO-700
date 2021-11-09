@@ -27,8 +27,14 @@ defmodule TimemanagerWeb.Router do
     resources("/clocks", ClockController, except: [:create])
     resources("/clocks/:userID", ClockController, only: [:create])
 
-    resources("/workingtimes", WorkingtimeController, except: [:create])
-    resources("/workingtimes/:userID", WorkingtimeController, only: [:create])
+    scope "/workingtimes" do
+      get "/:userID", WorkingtimeController, :index
+      post "/:userID", WorkingtimeController, :create
+    end
+
+    # resources("/workingtimes", WorkingtimeController, except: [:create])
+    # resources("/workingtimes/:userID", WorkingtimeController, only: [:create, :index])
+    # resources("/workingtimes/:userID", WorkingtimeController, only: [:showAll])
   end
 
   # Enables LiveDashboard only for development

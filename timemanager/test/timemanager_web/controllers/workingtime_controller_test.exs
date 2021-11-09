@@ -6,12 +6,12 @@ defmodule TimemanagerWeb.WorkingtimeControllerTest do
   alias Timemanager.Data.Workingtime
 
   @create_attrs %{
-    end: ~N[2021-11-02 10:43:00],
-    start: ~N[2021-11-02 10:43:00]
+    end: ~N[2021-11-02 14:12:00],
+    start: ~N[2021-11-02 14:12:00]
   }
   @update_attrs %{
-    end: ~N[2021-11-03 10:43:00],
-    start: ~N[2021-11-03 10:43:00]
+    end: ~N[2021-11-03 14:12:00],
+    start: ~N[2021-11-03 14:12:00]
   }
   @invalid_attrs %{end: nil, start: nil}
 
@@ -35,8 +35,8 @@ defmodule TimemanagerWeb.WorkingtimeControllerTest do
 
       assert %{
                "id" => ^id,
-               "end" => "2021-11-02T10:43:00",
-               "start" => "2021-11-02T10:43:00"
+               "end" => "2021-11-02T14:12:00",
+               "start" => "2021-11-02T14:12:00"
              } = json_response(conn, 200)["data"]
     end
 
@@ -57,8 +57,8 @@ defmodule TimemanagerWeb.WorkingtimeControllerTest do
 
       assert %{
                "id" => ^id,
-               "end" => "2021-11-03T10:43:00",
-               "start" => "2021-11-03T10:43:00"
+               "end" => "2021-11-03T14:12:00",
+               "start" => "2021-11-03T14:12:00"
              } = json_response(conn, 200)["data"]
     end
 

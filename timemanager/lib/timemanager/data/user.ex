@@ -18,7 +18,7 @@ defmodule Timemanager.Data.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:firstname, :lastname, :email, :address, :zipcode, :city, :country, :role])
-    |> validate_required([:firstname, :lastname, :email, :address, :zipcode, :city, :country, :role])
+    |> cast(attrs, [:address, :city, :country, :email, :firstname, :lastname, :role, :zipcode])
+    |> validate_required([:address, :city, :country, :email, :firstname, :lastname, :role, :zipcode])
   end
 end

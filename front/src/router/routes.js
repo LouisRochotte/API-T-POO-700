@@ -1,35 +1,42 @@
-import DashboardLayout from "@/layout/dashboard/DashboardLayout.vue";
+import DashboardLayout from '@/layout/dashboard/DashboardLayout.vue'
 // GeneralViews
-import NotFound from "@/pages/NotFoundPage.vue";
+import NotFound from '@/pages/NotFoundPage.vue'
 
 // Admin pages
-const Dashboard = () => import( /* webpackChunkName: "dashboard" */ "@/pages/Dashboard.vue");
-const Profile = () => import( /* webpackChunkName: "common" */ "@/pages/Profile.vue");
+const Dashboard = () =>
+  import(/* webpackChunkName: "dashboard" */ '@/pages/Dashboard.vue')
+const Profile = () =>
+  import(/* webpackChunkName: "common" */ '@/pages/Profile.vue')
+const Login = () => import(/* webpackChunkName: "common" */ '@/pages/Login.vue')
 
-
-const routes = [{
-    path: "/",
+const routes = [
+  {
+    path: '/',
     component: DashboardLayout,
-    redirect: "/dashboard",
-    children: [{
-        path: "dashboard",
-        name: "dashboard",
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        name: 'dashboard',
         component: Dashboard
       },
       {
-        path: "profile",
-        name: "profile",
+        path: 'profile',
+        name: 'profile',
         component: Profile
-      },
-
-
+      }
     ]
   },
   {
-    path: "*",
+    path: '*',
     component: NotFound
   },
-];
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
+  }
+]
 
 /**
  * Asynchronously load view (Webpack Lazy loading compatible)
@@ -40,4 +47,4 @@ function view(name) {
    return res;
 };**/
 
-export default routes;
+export default routes
