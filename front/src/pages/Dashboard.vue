@@ -8,7 +8,7 @@
               <div class="col-sm-6">
                 <h5 class="card-category">Work management</h5>
                 <h2 class="card-title">Working hours</h2>
-                <button type="button" class="btn btn-success" @click="month">
+                <button t ype="button" class="btn btn-success" @click="month">
                   Month
                 </button>
                 <button type="button" class="btn btn-success" @click="week">
@@ -19,12 +19,12 @@
             </div>
           </template>
           <div class="chart-area">
-            <BarWeekChart v-show="barWeekChart" />
             <BarMonthChart
               :arrayWorkingTimes="arrayWorkingTimes"
               v-show="barMonthChart"
               v-if="done"
             />
+            <BarWeekChart :wArr="wArr" v-show="barWeekChart" v-if="done" />
           </div>
         </card>
       </div>
@@ -101,6 +101,7 @@ export default {
         November: 0,
         December: 0,
       },
+      wArr: {},
     };
   },
   created() {
@@ -111,21 +112,28 @@ export default {
       )
       .then((response) => {
         let yearWorkingTimes = response.data.data;
+        let wk = moment(new Date()).week();
+        let firstWeek = wk - 12;
 
-        // var options = { month: 'long'};
+        for (let i = 0; i < 12; i++) {
+          this.wArr[wk - 11 + i] = 0;
+        }
         yearWorkingTimes.forEach((element) => {
           let month = new Date(element.start).toLocaleString("en-EN", {
             month: "long",
           });
           let elementStart = new Date(element.start);
           let elementEnd = new Date(element.end);
-          this.arrayWorkingTimes[month] += moment(elementEnd).diff(
-            moment(elementStart),
-            "hours"
-          );
-          this.done = true;
+          let diff = moment(elementEnd).diff(moment(elementStart), "hours");
+          this.arrayWorkingTimes[month] += diff;
+          let elementWeek = moment(elementStart).week();
+
+          if (elementWeek >= firstWeek) {
+            this.wArr[wk - (wk - elementWeek)] += diff;
+          }
         });
-        console.log(this.arrayWorkingTimes);
+
+        this.done = true;
       })
       .catch((e) => {
         this.errors.push(e);

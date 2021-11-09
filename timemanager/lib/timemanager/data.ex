@@ -143,6 +143,10 @@ defmodule Timemanager.Data do
     # Repo.all(Workingtime, user: userid)
   end
 
+  def get_workingtime_by_user!(userid, id) do
+    query = from m in Workingtime, where: m.id == ^id and m.user == ^userid
+    Repo.all(query)
+  end
   @doc """
   Creates a workingtime.
 
