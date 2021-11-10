@@ -12,13 +12,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in users" :key="user.id">
+          <tr v-for="user in users" :key="user.id"> 
             <td>{{ user.firstname }} {{ user.lastname }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.role }}</td>
-            <td class="d-flex justify-content-around">
-              <button class="btn btn-success">Promote</button>
-              <button class="btn btn-danger">Delete</button>
+            <td >
+              <button class="btn btn-success m-1">Promote</button>
+              <button class="btn btn-danger m-1">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -60,5 +60,8 @@ thead {
 }
 .table-responsive {
     overflow: auto;
+}
+.table {
+    width: 99% !important;
 }
 </style>
