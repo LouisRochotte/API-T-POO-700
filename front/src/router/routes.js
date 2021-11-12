@@ -7,6 +7,8 @@ const Profile = () =>
   import('@/pages/Profile.vue')
 const Login = () => import('@/pages/Login.vue')
 
+const Signup = () => import('@/pages/Signup.vue')
+
 const GeneralManager = () => import('@/pages/GeneralManager.vue')
 
 const routes = [{
@@ -39,7 +41,11 @@ const routes = [{
     name: 'login',
     component: Login
   },  
-
+  {
+    path: '/signup',
+    name: 'signup',
+    component: Signup
+  },  
 ]
 
 /**
