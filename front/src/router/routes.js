@@ -6,6 +6,8 @@ const Dashboard = () =>
 const Profile = () =>
   import('@/pages/Profile.vue')
 const Login = () => import('@/pages/Login.vue')
+const TeamMemberView = () => 
+  import('@/pages/TeamMemberView.vue')
 
 const Signup = () => import('@/pages/Signup.vue')
 
@@ -29,6 +31,11 @@ const routes = [{
         path: '/general-manager',
         name: 'generalManager',
         component: GeneralManager
+      },
+      {
+        path: '/team-review',
+        name: 'team-review',
+        component: TeamMemberView
       }
     ]
   },
