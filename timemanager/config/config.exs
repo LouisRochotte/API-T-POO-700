@@ -38,6 +38,10 @@ config :esbuild,
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
+# Guardian config
+config :Timemanager, Timemanager.Guardian,
+       issuer: "Timemanager",
+       secret_key: "O2UBus+7Ny66qqDTcPtD4zE/FuCItIZv/qqIrtoiOfdnde4TkmgKrieD/XAOi4Kw"
 
 # Configures Elixir's Logger
 config :logger, :console,

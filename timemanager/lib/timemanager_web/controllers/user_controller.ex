@@ -3,20 +3,26 @@ defmodule TimemanagerWeb.UserController do
 
   alias Timemanager.Data
   alias Timemanager.Data.User
-
+  alias Timemanager.Guardian
   action_fallback TimemanagerWeb.FallbackController
 
+  def sign_in(conn, %{"email" => email, "password" => password}) do
+    case Data.token_sign_in(email, password) do
+      {:ok, token, _claims} ->
+        conn |> render("jwt.json", jwt: token)
+      _ ->
+        {:error, :unauthorized}
+    end
+  end
   def index(conn, _params) do
     users = Data.list_users()
     render(conn, "index.json", users: users)
   end
 
   def create(conn, %{"user" => user_params}) do
-    with {:ok, %User{} = user} <- Data.create_user(user_params) do
-      conn
-      |> put_status(:created)
-      |> put_resp_header("location", Routes.user_path(conn, :show, user))
-      |> render("show.json", user: user)
+    with {:ok, %User{} = user} <- Data.create_user(user_params),
+         {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
+      conn |> render("jwt.json", jwt: token)
     end
   end
 

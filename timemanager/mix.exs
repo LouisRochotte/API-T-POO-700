@@ -52,6 +52,8 @@ defmodule Timemanager.MixProject do
       {:cors_plug, "~> 1.2"},
       {:bcrypt_elixir, "~> 2.0"},
       {:comeonin, "~> 5.3.2"},
+      {:guardian, "~> 1.0"}
+
     ]
   end
 

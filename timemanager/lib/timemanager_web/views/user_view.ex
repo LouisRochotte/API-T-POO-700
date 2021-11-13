@@ -23,4 +23,8 @@ defmodule TimemanagerWeb.UserView do
       zipcode: user.zipcode
     }
   end
+
+  def render("jwt.json", %{jwt: jwt}) do
+    %{jwt: jwt}
+  end
 end
