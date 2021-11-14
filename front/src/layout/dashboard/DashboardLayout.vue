@@ -13,6 +13,12 @@
           :name="$t('sidebar.dashboard')"
           icon="tim-icons icon-chart-pie-36"
         />
+
+        <sidebar-link
+          to="/team-review"
+          :name="$t('team-review')"
+          icon="tim-icons icon-notes"
+        />
         <!-- <sidebar-link to="/notifications" :name="$t('sidebar.notifications')" icon="tim-icons icon-bell-55"/> -->
         <!-- <sidebar-link to="/table-list" :name="$t('sidebar.tableList')" icon="tim-icons icon-puzzle-10"/> -->
       </template>
