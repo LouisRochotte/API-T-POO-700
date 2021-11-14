@@ -29,6 +29,9 @@ config :timemanager, Timemanager.Mailer, adapter: Swoosh.Adapters.Local
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false
 
+config :timemanager, :pow,
+  user: Timemanager.Users.User,
+  repo: Timemanager.Repo
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.12.18",

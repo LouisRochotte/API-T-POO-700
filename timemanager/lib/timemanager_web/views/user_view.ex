@@ -24,7 +24,7 @@ defmodule TimemanagerWeb.UserView do
     }
   end
 
-  def render("jwt.json", %{jwt: jwt}) do
-    %{jwt: jwt}
+  def render("jwt.json", %{jwt: jwt, user: user}) do
+    %{jwt: jwt, user_id: user.id, role: user.role}
   end
 end
