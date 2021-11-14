@@ -106,7 +106,7 @@
 </script>
 
 <style scope=""> 
-  thead {
+  /* thead {
     background-color: rgba(39, 41, 61, 1);
   }
   #table-card{
@@ -121,5 +121,5 @@
   }
   .table {
     width: 200% !important;
-  }
+  } */
 </style>
