@@ -12,13 +12,23 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in users" :key="user.id"> 
+          <tr v-for="user in filterUsers" :key="user.id">
             <td>{{ user.firstname }} {{ user.lastname }}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.role }}</td>
-            <td >
-              <button class="btn btn-success m-1">Promote</button>
-              <button class="btn btn-danger m-1">Delete</button>
+            <td>
+              <button
+                class="btn btn-success m-1"
+                v-on:click="promoteUser(user.id)"
+              >
+                Promote
+              </button>
+              <button
+                class="btn btn-danger m-1"
+                v-on:click="deleteUser(user.id)"
+              >
+                Delete
+              </button>
             </td>
           </tr>
         </tbody>
@@ -29,25 +39,81 @@
 
 <script>
 import axios from "axios";
+import authHeader from "../services/auth-header";
 
 const apiEndPoint = process.env.VUE_APP_API_ENDPOINT;
 
 export default {
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+    filterUsers: function () {
+      return this.users.filter(function (u) {
+        return u.role != "GeneralManager";
+      });
+    }, // contains only Alex and James
+  },
   data() {
     return {
       users: [],
     };
   },
+  methods: {
+    getUsers() {
+      axios
+        .get(`${apiEndPoint}/users`, authHeader())
+        .then((response) => {
+          this.users = response.data.data;
+          console.log(this.users);
+        })
+        .catch((e) => {
+          this.errors.push(e);
+        });
+    },
+    promoteUser(id) {
+      if (confirm("Are you sure to promote this user to Manager?")) {
+        axios
+          .put(
+            `${apiEndPoint}/users/${id}`,
+            {
+              user: {
+                role: "Manager",
+              },
+            },
+            authHeader()
+          )
+          .then((response) => {
+            this.getUsers();
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          });
+      }
+    },
+    deleteUser(id) {
+      if (confirm("Are you sure to delete this user?")) {
+        axios
+          .delete(
+            `${apiEndPoint}/users/${id}`,
+
+            authHeader()
+          )
+          .then((response) => {
+            this.getUsers();
+          })
+          .catch((e) => {
+            this.errors.push(e);
+          });
+      }
+    },
+  },
+  //  .put(this.path + '/' + id + '/promote', {
+  //     user: {
+  //       role: 1
+  //     }
   mounted() {
-    axios
-      .get(`${apiEndPoint}/users`)
-      .then((response) => {
-        this.users = response.data.data;
-        console.log(this.users);
-      })
-      .catch((e) => {
-        this.errors.push(e);
-      });
+    this.getUsers();
   },
 };
 </script>
@@ -59,9 +125,9 @@ thead {
   border: 0.0625rem solid rgba(255, 255, 255, 0.1);
 }
 .table-responsive {
-    overflow: auto;
+  overflow: auto;
 }
 .table {
-    width: 99% !important;
+  width: 99% !important;
 }
 </style>

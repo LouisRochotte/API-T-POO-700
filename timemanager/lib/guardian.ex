@@ -13,7 +13,7 @@ defmodule Timemanager.Guardian do
 
   def resource_from_claims(claims) do
     id = claims["sub"]
-    resource = Timemanager.Accounts.get_user!(id)
+    resource = Timemanager.Data.get_user!(id)
     {:ok,  resource}
   end
 
